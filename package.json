@@ -8,7 +8,7 @@
         "/dist"
     ],
     "scripts": {
-        "test": "npm run build; npx mocha ./src/index.test.js",
+        "test": "npm run build && npx mocha ./src/index.test.js",
         "build": "npx tsc"
     },
     "repository": {

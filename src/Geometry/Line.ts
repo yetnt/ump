@@ -2,10 +2,13 @@ import { Point, fResult, BaseLine } from "./base";
 
 /**
  * A line, what else.
+ * (This is a finite line, so this should be classified as a Ray but it's too late.)
  */
 export default class Line extends BaseLine {
     private _start: Point;
     private _end: Point;
+    private _distance: number;
+    private _inclination: number;
     /**
      * The gradient of the line, updates when you update either start or end property.
      */
@@ -71,6 +74,17 @@ export default class Line extends BaseLine {
         return this._end;
     }
 
+    get inclination() {
+        return this._inclination;
+    }
+
+    /**
+     * Distance between the two points.
+     */
+    get distance() {
+        return this._distance;
+    }
+
     /**
      * Checks if the given points lie on this line.
      *
@@ -119,6 +133,16 @@ export default class Line extends BaseLine {
             this.yIntercept === 0
                 ? this.start.x
                 : -this.yIntercept / this.gradient;
+
+        // m = tan(theta)
+        // atan(m) = theta
+
+        this._inclination = Math.atan(this.gradient);
+
+        this._distance = Math.sqrt(
+            Math.pow(this._end.x - this._start.x, 2) +
+                Math.pow(this._end.y - this._start.y, 2)
+        );
     }
 
     /**
